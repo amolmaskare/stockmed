@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StockMed Products</title>
+  <link rel="stylesheet" href="./css/order.css" />
+  <!-- Firebase App (the core Firebase SDK) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <!-- Firebase Firestore SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+</head>
+<body>
+  <header>
+    <h1>StockMed Products</h1>
+  </header>
+  
+  <main>
+    <section id="search-section">
+      <input type="text" id="search-input" placeholder="Search for medicines..." />
+      <button id="search-button">Search</button>
+    </section>
+
+    <section id="products-section">
+      <!-- Products will be dynamically inserted here -->
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 StockMed. All rights reserved.</p>
+  </footer>
+
+  <!-- Your custom JS -->
+  <script src="./js/order.js"></script>
+</body>
+</html>
