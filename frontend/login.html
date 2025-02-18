@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - StockMed</title>
+  <link rel="stylesheet" href="./css/order.css">
+</head>
+<body>
+  <header>
+    <h1>Login - StockMed</h1>
+  </header>
+  <main>
+    <form id="login-form">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Enter your email" required />
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Enter your password" required />
+      <button type="submit" class="button">Login</button>
+    </form>
+  </main>
+  <script>
+    document.getElementById('login-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      // Perform login logic here
+      localStorage.setItem('isLoggedIn', 'true'); // Simulate successful login
+      window.location.href = 'order.html'; // Redirect back to the order page
+    });
+  </script>
+</body>
+</html>

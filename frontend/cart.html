@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Cart - StockMed</title>
+  <link rel="stylesheet" href="./css/order.css" /> <!-- Reuse your existing CSS -->
+  <style>
+    /* Additional styles for the cart page */
+    body {
+      background-color: #f5f5f5;
+    }
+
+    #cart-items-section {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+
+    .cart-item-image {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .cart-item-details {
+      flex: 1;
+    }
+
+    .cart-item-details h3 {
+      margin: 0;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .cart-item-details p {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .cart-item-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cart-item-actions button {
+      padding: 5px 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .cart-item-actions button:hover {
+      background-color: #45a049;
+    }
+
+    #cart-total {
+      text-align: right;
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    #checkout-button {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    #checkout-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Your Cart - StockMed</h1>
+  </header>
+
+  <main>
+    <section id="cart-items-section">
+      <h2>Your Cart Items</h2>
+      <div id="cart-items-list">
+        <!-- Cart items will be dynamically inserted here -->
+      </div>
+      <div id="cart-total">
+        Total: ₹<span id="total-amount">0</span>
+      </div>
+      <button id="checkout-button">Proceed to Checkout</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 StockMed. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const cartItemsList = document.getElementById('cart-items-list');
+      const totalAmountElement = document.getElementById('total-amount');
+      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+      let totalAmount = 0;
+
+      if (cartItems.length === 0) {
+        cartItemsList.innerHTML = '<p>Your cart is empty.</p>';
+      } else {
+        cartItems.forEach(item => {
+          const itemDiv = document.createElement('div');
+          itemDiv.className = 'cart-item';
+
+          // Add item image
+          const itemImage = document.createElement('img');
+          itemImage.src = item.url || 'https://via.placeholder.com/150';
+          itemImage.alt = item.name;
+          itemImage.className = 'cart-item-image';
+          itemDiv.appendChild(itemImage);
+
+          // Add item details
+          const itemDetails = document.createElement('div');
+          itemDetails.className = 'cart-item-details';
+          itemDetails.innerHTML = `
+            <h3>${item.name}</h3>
+            <p><strong>Price:</strong> ₹${item['price(\u20b9)']}</p>
+            <p><strong>Quantity:</strong> ${item.quantity}</p>
+            <p><strong>Total:</strong> ₹${item['price(\u20b9)'] * item.quantity}</p>
+          `;
+          itemDiv.appendChild(itemDetails);
+
+          // Add item actions (e.g., remove button)
+          const itemActions = document.createElement('div');
+          itemActions.className = 'cart-item-actions';
+          const removeButton = document.createElement('button');
+          removeButton.textContent = 'Remove';
+          removeButton.addEventListener('click', () => {
+            cartItems.splice(cartItems.indexOf(item), 1);
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            window.location.reload(); // Refresh the page to update the cart
+          });
+          itemActions.appendChild(removeButton);
+          itemDiv.appendChild(itemActions);
+
+          cartItemsList.appendChild(itemDiv);
+
+          // Calculate total amount
+          totalAmount += item['price(\u20b9)'] * item.quantity;
+        });
+
+        // Display total amount
+        totalAmountElement.textContent = totalAmount.toFixed(2);
+      }
+    });
+    document.getElementById('checkout-button').addEventListener('click', () => {
+  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+  
+  if (cartItems.length === 0) {
+    alert("Your cart is empty. Please add items before checking out.");
+  } else {
+    localStorage.setItem('checkoutItems', JSON.stringify(cartItems));
+    window.location.href = 'payment.html';
+  }
+});
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout - StockMed</title>
+  <link rel="stylesheet" href="./css/order.css" /> <!-- Reuse your existing CSS -->
+  <style>
+    /* Additional styles for the checkout flow */
+    body {
+      background-color: #f5f5f5;
+      font-family: Arial, sans-serif;
+    }
+
+    .checkout-container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .checkout-step {
+      display: none;
+    }
+
+    .checkout-step.active {
+      display: block;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .button:hover {
+      background-color: #45a049;
+    }
+
+    .order-summary {
+      border-top: 1px solid #eee;
+      padding-top: 20px;
+    }
+
+    .order-summary-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .order-summary-item p {
+      margin: 0;
+      color: #555;
+    }
+
+    .order-summary-total {
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Checkout - StockMed</h1>
+  </header>
+
+  <main>
+    <div class="checkout-container">
+      <!-- Step 1: Add Address -->
+      <div id="step-1" class="checkout-step active">
+        <h2>Step 1: Add Delivery Address</h2>
+        <form id="address-form">
+          <label for="full-name">Full Name</label>
+          <input type="text" id="full-name" placeholder="Enter your full name" required />
+
+          <label for="address">Address</label>
+          <textarea id="address" rows="4" placeholder="Enter your delivery address" required></textarea>
+
+          <label for="city">City</label>
+          <input type="text" id="city" placeholder="Enter your city" required />
+
+          <label for="state">State</label>
+          <input type="text" id="state" placeholder="Enter your state" required />
+
+          <label for="pincode">Pincode</label>
+          <input type="text" id="pincode" placeholder="Enter your pincode" required />
+
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" placeholder="Enter your phone number" required />
+
+          <button type="button" class="button" onclick="nextStep(2)">Continue</button>
+        </form>
+      </div>
+
+      <!-- Step 2: Select Payment Method -->
+      <div id="step-2" class="checkout-step">
+        <h2>Step 2: Select Payment Method</h2>
+        <form id="payment-form">
+          <label>
+            <input type="radio" name="payment-method" value="credit-card" required /> Credit/Debit Card
+          </label>
+          <label>
+            <input type="radio" name="payment-method" value="net-banking" required /> Net Banking
+          </label>
+          <label>
+            <input type="radio" name="payment-method" value="upi" required /> UPI
+          </label>
+          <label>
+            <input type="radio" name="payment-method" value="cod" required /> Cash on Delivery (COD)
+          </label>
+
+          <button type="button" class="button" onclick="nextStep(3)">Continue</button>
+        </form>
+      </div>
+
+      <!-- Step 3: Order Summary -->
+      <div id="step-3" class="checkout-step">
+        <h2>Step 3: Order Summary</h2>
+        <div class="order-summary">
+          <div id="order-items">
+            <!-- Order items will be dynamically inserted here -->
+          </div>
+          <div class="order-summary-item">
+            <p>Delivery Date:</p>
+            <p id="delivery-date">3-5 business days</p>
+          </div>
+          <div class="order-summary-item order-summary-total">
+            <p>Total Amount:</p>
+            <p>₹<span id="order-total">0</span></p>
+          </div>
+        </div>
+        <button type="button" class="button" onclick="placeOrder()">Place Your Order</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 StockMed. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+  const checkoutItems = JSON.parse(localStorage.getItem('checkoutItems')) || [];
+  const orderSummary = document.querySelector('.order-summary');
+  let totalAmount = 0;
+
+  if (checkoutItems.length === 0) {
+    orderSummary.innerHTML = '<p>No items to display. Please go back and add items to your cart.</p>';
+  } else {
+    checkoutItems.forEach(item => {
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'order-summary-item';
+      itemDiv.innerHTML = `
+        <p>${item.name} (x${item.quantity})</p>
+        <p>₹${item['price(\u20b9)'] * item.quantity}</p>
+      `;
+      orderSummary.appendChild(itemDiv);
+
+      totalAmount += item['price(\u20b9)'] * item.quantity;
+    });
+
+    // Display the total amount
+    const totalDiv = document.createElement('div');
+    totalDiv.className = 'order-summary-total';
+    totalDiv.innerHTML = `
+      <p>Total:</p>
+      <p>₹${totalAmount.toFixed(2)}</p>
+    `;
+    orderSummary.appendChild(totalDiv);
+  }
+});
+
+    let currentStep = 1;
+
+    // Function to navigate between steps
+    function nextStep(step) {
+      document.getElementById(`step-${currentStep}`).classList.remove('active');
+      document.getElementById(`step-${step}`).classList.add('active');
+      currentStep = step;
+
+      // If step 3 is reached, display the order summary
+      if (step === 3) {
+        displayOrderSummary();
+      }
+    }
+
+    // Function to display the order summary
+    function displayOrderSummary() {
+      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      const orderItemsDiv = document.getElementById('order-items');
+      const orderTotalElement = document.getElementById('order-total');
+
+      let totalAmount = 0;
+      orderItemsDiv.innerHTML = '';
+
+      cartItems.forEach(item => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'order-summary-item';
+        itemDiv.innerHTML = `
+          <p>${item.name} (x${item.quantity})</p>
+          <p>₹${item['price(\u20b9)'] * item.quantity}</p>
+        `;
+        orderItemsDiv.appendChild(itemDiv);
+
+        totalAmount += item['price(\u20b9)'] * item.quantity;
+      });
+
+      orderTotalElement.textContent = totalAmount.toFixed(2);
+    }
+
+    // Function to place the order
+    function placeOrder() {
+      alert('Your order has been placed successfully!');
+      localStorage.removeItem('cartItems');
+      window.location.href = 'order.html'; // Redirect to the home page
+    }
+  </script>
+  <div class="order-summary">
+    <h2>Order Summary</h2>
+    <!-- Order items will be dynamically inserted here -->
+  </div>
+  
+</body>
+</html>

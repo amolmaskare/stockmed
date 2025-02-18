@@ -9,6 +9,53 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
   <!-- Firebase Firestore SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+  <!-- Modal Styles -->
+<style>
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .close-modal {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  .modal-buttons {
+    margin-top: 20px;
+  }
+
+  .modal-button {
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .modal-button:hover {
+    background-color: #45a049;
+  }
+</style>
 </head>
 <body>
   <header>
@@ -24,6 +71,19 @@
     <section id="products-section">
       <!-- Products will be dynamically inserted here -->
     </section>
+    <!-- Login/Signup Modal -->
+<div id="login-modal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+    <h2>Login or Sign Up</h2>
+    <p>You need to log in or sign up to add items to your cart.</p>
+    <div class="modal-buttons">
+      <button id="login-button" class="modal-button">Login</button>
+      <button id="signup-button" class="modal-button">Sign Up</button>
+    </div>
+  </div>
+</div>
+
   </main>
 
   <footer>
@@ -32,5 +92,10 @@
 
   <!-- Your custom JS -->
   <script src="./js/order.js"></script>
+  <!-- use to access config data -->
+  <script src="config.js"></script>
+<script src="order.js"></script>
+<script src="cart.js"></script>
+
 </body>
 </html>
