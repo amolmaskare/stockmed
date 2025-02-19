@@ -19,11 +19,37 @@ document.addEventListener('DOMContentLoaded', function () {
   let currentPage = 1;
   const itemsPerPage = 1; // Number of items per page
   let cartItems = []; // Array to store added items
+ // Function to check if the user is logged in
+  function isUserLoggedIn() {
+    return localStorage.getItem('isLoggedIn') === 'true';
+  }
+
+  // Function to show the login/signup modal
+  function showLoginModal() {
+    const modal = document.getElementById('login-modal');
+    modal.style.display = 'block';
+
+    // Close modal when the close button is clicked
+    document.querySelector('.close-modal').addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    // Redirect to login page
+    document.getElementById('login-button').addEventListener('click', () => {
+      window.location.href = 'login.html';
+    });
+
+    // Redirect to signup page
+    document.getElementById('signup-button').addEventListener('click', () => {
+      window.location.href = 'signup.html';
+    });
+  }
 
   // Define Google API credentials
   const GOOGLE_API_KEY = CONFIG.GOOGLE_API_KEY; // Replace with your actual API key
   const GOOGLE_CX = CONFIG.GOOGLE_CX; // Replace with your actual CX
 
+  
   // Function to fetch an image using Google Custom Search API
   function fetchGoogleImage(query) {
     const googleUrl = `https://www.googleapis.com/customsearch/v1?key=${GOOGLE_API_KEY}&cx=${GOOGLE_CX}&q=${encodeURIComponent(query)}&searchType=image&num=1`;
@@ -141,15 +167,15 @@ document.addEventListener('DOMContentLoaded', function () {
       const addButton = document.createElement('button');
       addButton.textContent = 'Add to Cart';
       // Function to check if the user is logged in
-function isUserLoggedIn() {
-  // Replace this with your actual logic to check if the user is logged in
-  return localStorage.getItem('isLoggedIn') === 'true';
-}
+      function isUserLoggedIn() {
+        // Replace this with your actual logic to check if the user is logged in
+        return localStorage.getItem('isLoggedIn') === 'true';
+      }
 
-// Function to show the login/signup modal
-function showLoginModal() {
-  const modal = document.getElementById('login-modal');
-  modal.style.display = 'block';
+      // Function to show the login/signup modal
+      function showLoginModal() {
+        const modal = document.getElementById('login-modal');
+        modal.style.display = 'block';
 
   // Close modal when the close button is clicked
   const closeModal = document.querySelector('.close-modal');
