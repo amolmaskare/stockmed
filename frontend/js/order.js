@@ -19,7 +19,12 @@ document.addEventListener('DOMContentLoaded', function () {
   let currentPage = 1;
   const itemsPerPage = 1; // Number of items per page
   let cartItems = []; // Array to store added items
- // Function to check if the user is logged in
+
+  // Define Google API credentials
+  const GOOGLE_API_KEY = CONFIG.GOOGLE_API_KEY; // Replace with your actual API key
+  const GOOGLE_CX = CONFIG.GOOGLE_CX; // Replace with your actual CX
+
+  // Function to check if the user is logged in
   function isUserLoggedIn() {
     return localStorage.getItem('isLoggedIn') === 'true';
   }
@@ -45,11 +50,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Define Google API credentials
-  const GOOGLE_API_KEY = CONFIG.GOOGLE_API_KEY; // Replace with your actual API key
-  const GOOGLE_CX = CONFIG.GOOGLE_CX; // Replace with your actual CX
-
-  
   // Function to fetch an image using Google Custom Search API
   function fetchGoogleImage(query) {
     const googleUrl = `https://www.googleapis.com/customsearch/v1?key=${GOOGLE_API_KEY}&cx=${GOOGLE_CX}&q=${encodeURIComponent(query)}&searchType=image&num=1`;
@@ -163,56 +163,15 @@ document.addEventListener('DOMContentLoaded', function () {
       `;
       productCard.appendChild(detailsDiv);
 
-      // Add "Add" button
+      // Add "Add to Cart" button
       const addButton = document.createElement('button');
       addButton.textContent = 'Add to Cart';
-      // Function to check if the user is logged in
-      function isUserLoggedIn() {
-        // Replace this with your actual logic to check if the user is logged in
-        return localStorage.getItem('isLoggedIn') === 'true';
-      }
-
-      // Function to show the login/signup modal
-      function showLoginModal() {
-        const modal = document.getElementById('login-modal');
-        modal.style.display = 'block';
-
-  // Close modal when the close button is clicked
-  const closeModal = document.querySelector('.close-modal');
-  closeModal.addEventListener('click', () => {
-    modal.style.display = 'none';
-  });
-
-  // Redirect to login page
-  const loginButton = document.getElementById('login-button');
-  loginButton.addEventListener('click', () => {
-    window.location.href = 'login.html'; // Replace with your login page URL
-  });
-
-  // Redirect to signup page
-  const signupButton = document.getElementById('signup-button');
-  signupButton.addEventListener('click', () => {
-    window.location.href = 'signup.html'; // Replace with your signup page URL
-  });
-}
-
-// Inside the "Add to Cart" button event listener
-addButton.addEventListener('click', () => {
-  if (!isUserLoggedIn()) {
-    showLoginModal(); // Show login/signup modal if user is not logged in
-    return; // Stop further execution
-  }
-
-  const existingItem = cartItems.find(item => item.id === product.id);
-  if (existingItem) {
-    existingItem.quantity += 1; // Increase quantity if item already exists
-  } else {
-    cartItems.push({ ...product, quantity: 1 }); // Add new item to cart
-  }
-  cartCount.textContent = cartItems.reduce((total, item) => total + item.quantity, 0); // Update cart count
-});
       addButton.className = 'add-button';
       addButton.addEventListener('click', () => {
+        if (!isUserLoggedIn()) {
+          showLoginModal();
+          return;
+        }
         const existingItem = cartItems.find(item => item.id === product.id);
         if (existingItem) {
           existingItem.quantity += 1; // Increase quantity if item already exists
