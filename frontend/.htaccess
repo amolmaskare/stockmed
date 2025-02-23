@@ -1,0 +1,12 @@
+# Allow POST requests to signup.php
+<Files "signup.php">
+    AllowMethods POST
+</Files>
+
+# Basic security rules
+<IfModule mod_headers.c>
+    RequestHeader unset Proxy
+</IfModule>
+
+# Disable directory browsing
+Options -Indexes
