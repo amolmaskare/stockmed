@@ -1,8 +1,25 @@
 
 .navbar {
     background-color: #4CAF50;
-    height: 15%;
+    height: 80px;
+    margin: 20px;
+    border-radius: 16px;
+    padding: 0.5rem;
+
+
 }
+
+.navbar-brand {
+    font-weight: 500;
+    color: #009970;
+    font-size: 24px;
+    transition: 0.3s color;
+}
+
+.d-flex {
+    padding-right: 5%;
+}    
+
 
 .login-button {
     background-color: #fff;
@@ -15,17 +32,19 @@
 }
 
 .login-button:hover {
-    background-color:#fff;
+    background-color: #198754;
+    color: #fff;
 }
 
 .navbar-toggler {
-    border: none;
+    /* border: none; */
+    border: none !important;
     font-size: 1.25rem;
 }
 
 .navbar-toggler:focus, .btn-close:focus {
-    box-shadow: none;
-    outline: none;
+    box-shadow: none !important;
+    outline: none !important;
 }
 
 .nav-link {
@@ -56,4 +75,21 @@
         width: 100%;
         visibility: visible;
     }
+}
+
+.hero-section {
+    background: url(/frontend/stockmed_main_photo.jpg) no-repeat top;
+    background-size: cover;
+    width: 100%;
+}
+
+.hero-section .container {
+    height: 100vh;
+    z-index: 1;
+    position: relative;
+
+}
+
+.hero-section h1 {
+    font-size: 1.5em;
 }
