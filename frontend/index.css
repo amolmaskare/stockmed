@@ -119,4 +119,5 @@
     font-size: 5rem; /* Same size for both */
     margin: 0; /* Remove extra margin */
     line-height: 1.2; /* Adjust line spacing */
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5); /* Adding shadow effect */
 }
