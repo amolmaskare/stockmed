@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>stockMed</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="./css/index.css">
 
     <!-- Bootstr
      ap CSS -->
@@ -75,6 +75,19 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+    <script>
+      // Fetch username from PHP session
+      fetch('../backend/get_user.php')
+        .then(response => response.json())
+        .then(data => {
+          if (data.username) {
+            const userInitial = data.username.charAt(0).toUpperCase(); // Get first letter
+            localStorage.setItem('userInitial', userInitial); // Store in localStorage
+            document.getElementById('user-initial').textContent = userInitial;
+          }
+        })
+        .catch(error => console.error('Error fetching user:', error));
+    </script>
+    
 </body> 
 </html>

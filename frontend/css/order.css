@@ -23,7 +23,7 @@ header {
 main {
     flex: 1;
     padding: 20px;
-    max-width: 1200px;
+    max-width: 1440px;
     margin: 0 auto;
     width: 100%;
 }
@@ -70,7 +70,7 @@ main {
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 250px;
+    width: 300px;
     padding: 15px;
     text-align: center;
     transition: transform 0.2s, box-shadow 0.2s;
@@ -121,7 +121,7 @@ main {
 }
 
 /* Cart Count */
-#cart-count {
+/* #cart-count {
     position: fixed;
     top: 20px;
     right: 20px;
@@ -138,7 +138,7 @@ main {
     justify-content: center;
     width: 40px;
     height: 40px;
-}
+} */
 
 /* Pagination */
 .pagination {
@@ -194,5 +194,69 @@ main {
     100% {
       transform: translateY(0);
     }
+  }
+  
+  #user-cart-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  #cart-container {
+    position: relative; /* Ensures #cart-count is positioned relative to this container */
+    cursor: pointer;
+  }
+  
+  #cart-icon {
+    width: 40px; /* Adjust size as needed */
+    height: 40px;
+  }
+  
+  #cart-count {
+    position: fixed; /* Position relative to #cart-container */
+    top: 20px; /* Adjust to position the count above the cart icon */
+    right: 10px; /* Adjust to position the count to the right of the cart icon */
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* z-index: 1; Ensure the count is above other elements */
+  }
+    
+  /* logout option */
+  .dropdown {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    right: 10px;
+    top: 60px;
+    z-index: 1000;
+  }
+  
+  .dropdown button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .dropdown button:hover {
+    background-color: darkred;
   }
   

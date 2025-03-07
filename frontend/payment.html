@@ -237,10 +237,56 @@
 
     // Function to place the order
     function placeOrder() {
+  const fullName = document.getElementById('full-name').value;
+  const address = document.getElementById('address').value;
+  const city = document.getElementById('city').value;
+  const state = document.getElementById('state').value;
+  const pincode = document.getElementById('pincode').value;
+  const phone = document.getElementById('phone').value;
+  const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
+  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+  if (!fullName || !address || !city || !state || !pincode || !phone || !paymentMethod) {
+    alert("Please fill in all required fields.");
+    return;
+  }
+
+  // Prepare the data for submission
+  const orderData = {
+    fullName,
+    address,
+    city,
+    state,
+    pincode,
+    phone,
+    paymentMethod,
+    cartItems,
+    totalAmount: document.getElementById('order-total').textContent
+  };
+
+  // Send the data to the backend
+  fetch('http://localhost/StockMed/frontend/submit_order.php', {  // Change this URL to your actual API endpoint
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(orderData)
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
       alert('Your order has been placed successfully!');
-      localStorage.removeItem('cartItems');
-      window.location.href = 'order.html'; // Redirect to the home page
+      localStorage.removeItem('cartItems'); // Clear cart after successful order
+      window.location.href = 'order.php'; // Redirect to order confirmation page
+    } else {
+      alert('Error placing order. Please try again.');
     }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    alert('An error occurred. Please try again.');
+  });
+}
   </script>
   <div class="order-summary">
     <h2>Order Summary</h2>

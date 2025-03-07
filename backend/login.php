@@ -1,36 +1,30 @@
-<?php
-// Database connection
-$servername = "localhost";
-$username = "root"; // Change if needed
-$password = ""; // Change if needed
-$database = "medicine";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - StockMed</title>
+  <link rel="stylesheet" type="text/css" href="../frontend/css/order.css">
+  <link rel="stylesheet" type="text/css" href="../frontend/css/login.css">
 
-$conn = new mysqli($servername, $username, $password, $database);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+</head>
+<body>
+  <div class="login-container">
+    <h1>Login to StockMed</h1>
+    <form id="login-form" action="connect.php" method="POST">
+      <!-- <input type="text" name="username" id="username" placeholder="User Name" required /> -->
+      <input type="email" name="email" id="email" placeholder="Email" required />
+      <input type="password" name="password" id="password" placeholder="Password" required />
+      <button type="submit" class="btn" name="submit">login Up</button>
+    </form>
+    <p>Don't have an account? <a href="signup.php">Sign Up</a></p>  
+  </div>
 
-// Check if form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $conn->real_escape_string($_POST["email"]);
-    $password = $_POST["password"];
-
-    // Fetch user from database
-    $sql = "SELECT * FROM user WHERE email = '$email'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows == 1) {
-        $row = $result->fetch_assoc();
-        if (password_verify($password, $row["password"])) {
-            echo "Login successful! Welcome, " . $row["username"];
-            // You can redirect to a dashboard page here
-        } else {
-            echo "Invalid password!";
-        }
-    } else {
-        echo "No user found with this email!";
-    }
-}
-
-$conn->close();
-?>
+  <!-- Medicine Icons -->
+  <div class="medicine-icons">
+    <img src="https://cdn-icons-png.flaticon.com/512/206/206853.png" style="top: 10%; left: 5%;" />
+    <img src="https://cdn-icons-png.flaticon.com/512/206/206853.png" style="top: 20%; right: 10%;" />
+    <img src="https://cdn-icons-png.flaticon.com/512/206/206853.png" style="bottom: 15%; left: 20%;" />
+  </div>
+</body>
+</html>

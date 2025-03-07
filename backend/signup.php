@@ -1,42 +1,30 @@
-<?php
-// Enable error reporting
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - StockMed</title>
+  <link rel="stylesheet" type="text/css" href="../frontend/css/order.css">
+  <link rel="stylesheet" type="text/css" href="../frontend/css/login.css">
 
-// Include the database connection file
-include 'db_connect.php'; 
+</head>
+<body>
+  <div class="login-container">
+    <h1>Sign Up for StockMed</h1>
+    <form id="signup-form" action="connect.php" method="POST">
+      <input type="text" name="username" id="username" placeholder="User Name" required />
+      <input type="email" name="email" id="email" placeholder="Email" required />
+      <input type="password" name="password" id="password" placeholder="Password" required />
+      <button type="submit" class="btn" name="submit">Sign Up</button>
+    </form>
+    <p>Already have an account? <a href="login.php">Login</a></p>
+  </div>
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Debug: Print form data
-    echo "<pre>";
-    print_r($_POST);
-    echo "</pre>";
-
-    // Get form data safely
-    $username = isset($_POST["username"]) ? $conn->real_escape_string($_POST["username"]) : '';
-    $email = isset($_POST["email"]) ? $conn->real_escape_string($_POST["email"]) : '';
-    $password = isset($_POST["password"]) ? password_hash($_POST["password"], PASSWORD_BCRYPT) : '';
-
-    // Check if fields are empty
-    if (!empty($username) && !empty($email) && !empty($password)) {
-        // Insert user into database
-        $sql = "INSERT INTO user (username, email, password) VALUES ('$username', '$email', '$password')";
-        
-        // Debug: Print SQL query
-        echo "SQL Query: " . $sql;
-
-        if ($conn->query($sql) === TRUE) {
-            echo "✅ Signup successful!";
-            header("Location: ../login.html"); // Redirect to login page
-            exit();
-        } else {
-            echo "❌ Error: " . $conn->error; // Show SQL error message
-        }
-    } else {
-        echo "❌ All fields are required!";
-    }
-}
-
-// Close the database connection
-$conn->close();
-?>
+  <!-- Medicine Icons -->
+  <div class="medicine-icons">
+    <img src="https://cdn-icons-png.flaticon.com/512/206/206853.png" style="top: 10%; left: 5%;" />
+    <img src="https://cdn-icons-png.flaticon.com/512/206/206853.png" style="top: 20%; right: 10%;" />
+    <img src="https://cdn-icons-png.flaticon.com/512/206/206853.png" style="bottom: 15%; left: 20%;" />
+  </div>
+</body>
+</html>
