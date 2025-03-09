@@ -4,10 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - Your Online Pharmacy</title>
+    <title>StockMeds</title>
+    <a href="navbar.html"></a>
+    <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="aboutus.css">  <!-- Linking External CSS -->
 </head>
 <body>
+
+    <div id="navbar-placeholder"></div>
+
+    <script>
+        fetch("navbar.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("navbar-placeholder").innerHTML = data;
+    
+                // Manually add the CSS link after inserting the navbar
+                let link = document.createElement("link");
+                link.rel = "stylesheet";
+                link.href = "navbar.css";
+                document.head.appendChild(link);
+            })
+            .catch(error => console.error("Error loading navbar:", error));
+    </script>
+    
+    
+    
 
     <div class="container">
         <h1>About Us</h1>
@@ -21,7 +43,7 @@
             </div>
             <div class="box">
                 <h3>💊 What We Do</h3>
-                <p>We offer <b>and non-prescription medicines</b>, healthcare products, and medical consultations all in one place.</p>
+                <p>We offer <b>prescription and non-prescription medicines</b>, healthcare products, and medical consultations all in one place.</p>
             </div>
             <div class="box">
                 <h3>👨‍⚕️ Our Team</h3>
