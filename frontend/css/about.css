@@ -1,0 +1,96 @@
+/* General Styles */
+
+.body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Main Container */
+.container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    padding-bottom: 20px;
+    background: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Headings */
+
+h1 {
+    font-size: 3.5rem;
+    color: #4CAF50;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-style: italic;
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 5px;
+    margin-top: 20px;
+}
+
+p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+}
+
+/* Box Container */
+.box-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    gap: 15px;
+}
+
+/* Individual Boxes */
+.box {
+    flex: 1;
+    background: #4CAF50;
+    color: #fff;
+    padding: 40px 20px 20px; /* Added extra top padding to make space for h3 */
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative; /* Required for absolute positioning inside */
+    transition: 0.3s;
+}
+
+/* Positioning h3 at the top border */
+.box h3 {
+    font-size: 1.5rem;
+    position: absolute;
+    top: -50px; /* Moves the text above the box */
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff; /* White background to separate text */
+    color: #4CAF50; /* Match the box background color */
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 1);
+}
+
+.box:hover {
+    transform: translateY(-5px);
+    background: #0056b3;
+}
+
+.box p {
+    font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .box-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+}

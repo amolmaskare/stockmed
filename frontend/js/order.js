@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let allProducts = [];
   let filteredProducts = [];
   let currentPage = 1;
-  const itemsPerPage = 2000;
+  const itemsPerPage = 20;
   let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 cartCount.textContent = cartItems.reduce((total, item) => total + item.quantity, 0);
 
