@@ -1,5 +1,4 @@
 /* General Styles */
-
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -13,7 +12,6 @@ body {
     max-width: 900px;
     margin: 150px auto;
     padding: 20px;
-    padding-bottom: 20px;
     background: #fff;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     border-radius: 8px;
@@ -21,10 +19,10 @@ body {
 }
 
 /* Headings */
-
 h1 {
     font-size: 3.5rem;
     color: #4CAF50;
+    margin-bottom: 10px;
 }
 
 h2 {
@@ -39,27 +37,29 @@ p {
     font-size: 1.1rem;
     line-height: 1.6;
     margin-bottom: 15px;
-    padding-bottom: 10px;
 }
 
 /* Box Container */
 .box-container {
     display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
+    justify-content: center; /* Ensures boxes are centered */
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
     gap: 15px;
+    padding: 0 20px; /* Ensures even spacing from both sides */
 }
 
 /* Individual Boxes */
 .box {
     flex: 1;
+    min-width: 250px; /* Prevents boxes from shrinking too much */
+    max-width: 300px; /* Ensures boxes are not too wide */
     background: #4CAF50;
     color: #fff;
-    padding: 40px 20px 20px; /* Added extra top padding to make space for h3 */
+    padding: 50px 20px 20px; /* Extra top padding for h3 */
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
-    position: relative; /* Required for absolute positioning inside */
+    position: relative;
     transition: 0.3s;
 }
 
@@ -67,30 +67,88 @@ p {
 .box h3 {
     font-size: 1.5rem;
     position: absolute;
-    top: -50px; /* Moves the text above the box */
+    top: -20px; /* Moves the text above the box */
     left: 50%;
     transform: translateX(-50%);
-    background: #fff; /* White background to separate text */
-    color: #4CAF50; /* Match the box background color */
-    padding: 5px 10px;
+    background: #fff;
+    color: #4CAF50;
+    padding: 5px 15px;
     border-radius: 8px;
     font-weight: bold;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 1);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+    white-space: nowrap; /* Prevents text from breaking */
 }
 
+/* Hover Effect */
 .box:hover {
     transform: translateY(-5px);
     background: #0056b3;
 }
 
+/* Paragraph inside Box */
 .box p {
     font-size: 1rem;
 }
 
-/* Responsive Design */
+/* Responsive Adjustments */
 @media (max-width: 768px) {
+    .container {
+        max-width: 95%; /* Allows the content to adjust */
+        margin: 100px auto;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
     .box-container {
         flex-direction: column;
+        align-items: center; /* Centers boxes when stacked */
         gap: 20px;
+    }
+    
+    .box {
+        width: 90%; /* Makes boxes take up most of the screen width */
+        max-width: 400px; /* Ensures they don’t get too large */
+    }
+
+    .box h3 {
+        font-size: 1.2rem;
+        top: -30px; /* Adjust position for better spacing */
+        padding: 3px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        max-width: 100%;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+
+    .box {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .box h3 {
+        font-size: 1rem;
+        top: -25px;
+        padding: 2px 8px;
     }
 }

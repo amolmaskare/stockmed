@@ -1,42 +1,41 @@
-/* Font styling link */
-@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@400;700&display=swap');
-
 .hero-section {
     position: relative;
     width: 100%;
     height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* Ensures content stays left */
-    padding-left: 5%; /* Extra space for text */
+    justify-content: center; /* Center both text and video */
+    text-align: center;
 }
 
-/* Video Styling */
+/* Center the video */
 .hero-section video {
     position: absolute;
     top: 50%;
-    left: 70%; /* Slightly shift the video to the right */
+    left: 50%;
     transform: translate(-50%, -50%);
-    width: 110%; /* Slightly extend to prevent cutting */
-    height: 100vh;
+    min-width: 100vw;
+    min-height: 100vh;
+    width: auto;
+    height: auto;
     object-fit: cover;
+    z-index: 1;
 }
 
 /* Text Container */
 .hero-section .container {
-    position: absolute;
-    z-index: 2;
-    color: #072169;
+    position: relative;
+    z-index: 2; /* Ensures text is above video */
+    color: #fff; /* Change text color to white for visibility */
     font-weight: bold;
-    width: 50%; /* Allocate 40% width for text */
-    text-align: left;
-    padding-top: 10%;
+    width: 80%; /* Adjust width as needed */
+    max-width: 800px;
 }
 
 /* Heading styles */
 .hero-section h1, 
 .hero-section h2 {
-    font-size: 4rem;
+    font-size: 5rem;
     margin: 0;
     line-height: 1.2;
     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
@@ -44,28 +43,7 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    .hero-section {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding-left: 0;
-    }
-
-    .hero-section .container {
-        width: 90%;
-        text-align: center;
-    }
-
     .hero-section h1, .hero-section h2 {
         font-size: 2.5rem;
     }
-
-    .hero-section video {
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 100%;
-    }
 }
-
-
-
