@@ -1,94 +1,112 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Changed height to min-height to prevent cutting */
+  flex-direction: column;
+  padding-top: 90px; /* Add padding to prevent overlap with navbar */
 }
 
 .contact-container {
-    width: 40%;
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 40%;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  margin-top: 20px; /* Ensure it stays below navbar */
 }
 
 h2 {
-    text-align: center;
-    color: #333;
+  text-align: center;
+  color: #333;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 15px; /* Added padding at the bottom */
 }
 
 label {
-    margin-top: 10px;
-    font-weight: bold;
+  margin-top: 10px;
+  font-weight: bold;
 }
 
-input, textarea {
-    width: 100%;  /* Ensuring full width */
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box; /* Ensures padding does */
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 20px; /* Added margin to create spacing */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
 
 /* Button Styling */
 button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px; /* Smaller size */
-    margin-top: 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 20px; /* Slightly increased padding for better appearance */
+  margin-top: 15px !important; /* Force spacing between textarea & button */
+  border: none;
+  border-radius: 50px !important; /* Forcefully curves the button */
+  cursor: pointer;
+  font-size: 14px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 /* Pop-up effect on hover */
 button:hover {
-    transform: scale(1.2); /* Increases size */
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); /* Adds a glow */
-    background-color: #45a049;
+  transform: scale(1.2);
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  background-color: #45a049;
 }
-
 
 /* Floating icon animation */
 .medicine-icons {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.medicine-icons img {
+  position: absolute;
+  width: 50px;
+  opacity: 0.2;
+  animation: float 6s infinite ease-in-out;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .contact-container {
+      width: 90%; /* Make it fit smaller screens */
+      padding: 15px;
   }
-  
-  .medicine-icons img {
-    position: absolute;
-    width: 50px;
-    opacity: 0.2;
-    animation: float 6s infinite ease-in-out;
+
+  body {
+      padding-top: 100px; /* Increase padding to avoid navbar overlap */
   }
-  
-  @keyframes float {
-    0% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-20px);
-    }
-    100% {
-      transform: translateY(0);
-    }
-  }
-  
+}
