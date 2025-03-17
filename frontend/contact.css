@@ -1,7 +1,18 @@
+/* Prevents input and button from expanding in the contact page */
+.search-form input {
+  width: auto !important;  /* Restricts automatic expansion */
+  flex-grow: 0 !important; /* Prevents flex from expanding */
+}
+
+.search-form button {
+  flex-grow: 0 !important; /* Ensures button stays its normal size */
+  white-space: nowrap; /* Prevents button text from wrapping */
+}
+
 body {
   font-family: Arial, sans-serif;
   background-color: #f9f9f9;
-  margin: 0;
+  /* margin: 0; */
   padding: 0;
   display: flex;
   justify-content: center;
@@ -9,6 +20,26 @@ body {
   min-height: 100vh; /* Changed height to min-height to prevent cutting */
   flex-direction: column;
   padding-top: 90px; /* Add padding to prevent overlap with navbar */
+  position: relative;
+  background-image: url('/frontend/contact2.jpg'); /* Replace with your image URL */
+  background-size: cover;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  filter: blur(1px); /* Adjust the blur intensity */
+  z-index: -1; /* Sends it behind all content */
+}
+
+.container {
+  text-align: left; /* Or center, as needed */
+  justify-content: center; /* Keeps button centered */
 }
 
 .contact-container {
@@ -22,13 +53,15 @@ body {
 
 h2 {
   text-align: center;
+  padding-top: 5px;
   color: #333;
 }
 
 form {
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
-  padding-bottom: 15px; /* Added padding at the bottom */
+  padding-bottom: 0; /* Added padding at the bottom */
+  margin-bottom: 0;
 }
 
 label {
@@ -38,7 +71,7 @@ label {
 
 input {
   width: 100%;
-  padding: 10px;
+  padding: 5px;
   margin-top: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -49,34 +82,37 @@ textarea {
   width: 100%;
   padding: 10px;
   margin-top: 5px;
-  margin-bottom: 20px; /* Added margin to create spacing */
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
 }
 
-/* Button Styling */
-button {
-  background-color: #4CAF50;
+.popup-button {
+  background-color: green;
   color: white;
-  padding: 8px 20px; /* Slightly increased padding for better appearance */
-  margin-top: 15px !important; /* Force spacing between textarea & button */
   border: none;
-  border-radius: 50px !important; /* Forcefully curves the button */
+  padding: 5px 6px; /* Reduced padding for smaller width */
+  font-size: 15px;
   cursor: pointer;
-  font-size: 14px;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  border-radius: 5px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 10px;
+  margin-bottom: 0;
+  min-width: 50px; /* Adjusted minimum width */
+  text-align: center;
+  display: block;
+  margin: 10px auto; /* Centers horizontally */
 }
 
-/* Pop-up effect on hover */
-button:hover {
-  transform: scale(1.2);
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-  background-color: #45a049;
+
+.popup-button:hover {
+  transform: scale(1.1); /* Slight pop-up effect */
+  box-shadow: 0px 3px 8px rgba(0, 128, 0, 0.4); /* Soft shadow */
 }
+
 
 /* Floating icon animation */
-.medicine-icons {
+/* .medicine-icons {
   position: fixed;
   top: 0;
   left: 0;
@@ -91,7 +127,7 @@ button:hover {
   width: 50px;
   opacity: 0.2;
   animation: float 6s infinite ease-in-out;
-}
+} */
 
 @keyframes float {
   0% { transform: translateY(0); }

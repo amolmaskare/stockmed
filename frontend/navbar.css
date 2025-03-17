@@ -1,33 +1,66 @@
-
 .navbar {
-    background-color: #4CAF50; 
+    background-color: #4CAF50;
     height: 80px;
-    margin: 20px;
+    margin: 10px;
     border-radius: 16px;
     padding: 0.5rem;
-
-
-}
-
-
-
-.navbar.scrolled {
-    background-color: rgba(76, 175, 80, 0.9); /* Slight transparency */
-    transition: background-color 0.3s ease-in-out;
 }
 
 .navbar-brand {
     font-weight: 500;
-    color: #000;
+    color: #fff;
     font-size: 24px;
-    transition: 0.3s color;
+    transition: color 0.3s;
 }
 
-.d-flex {
-    padding-right: 5%;
-}    
+.navbar-nav {
+    display: flex;
+    align-items: center;
+}
 
+.nav-link {
+    color: #666777;
+    font-weight: 500;
+    position: relative;
+    padding: 10px 15px;
+}
 
+/* Active Page Styling */
+.nav-link.active {
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Underline Effect */
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background-color: #fff;
+    transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+}
+
+.nav-link.active::after {
+    width: 100%;
+    left: 0;
+}
+
+/* Adjust Navbar Button */
+.navbar-toggler {
+    border: none !important;
+    font-size: 1.25rem;
+}
+
+.navbar-toggler:focus,
+.btn-close:focus {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Login Button */
 .login-button {
     background-color: #fff;
     color: #4CAF50;
@@ -35,7 +68,7 @@
     padding: 8px 20px;
     border-radius: 50px;
     text-decoration: none;
-    transition: 0.3s background-color;
+    transition: background-color 0.3s;
 }
 
 .login-button:hover {
@@ -43,43 +76,15 @@
     color: #fff;
 }
 
-.navbar-toggler {
-    /* border: none; */
-    border: none !important;
-    font-size: 1.25rem;
-}
-
-.navbar-toggler:focus, .btn-close:focus {
-    box-shadow: none !important;
-    outline: none !important;
-}
-
-.nav-link {
-    color: #666777;
-    font-weight: 500;
-    position: relative;
-}
-
-.nav-link:hover, .nav-link.active {
-    color: #000;
-}
-
-@media (min-width: 991px) {
-.nav-link::before {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 0;
-        height: 2px;
-        background-color: #fff;
-        visibility: hidden;
-        transition: 0.3s ease-in-out;
+/* Responsive Fix */
+@media (max-width: 991px) {
+    .navbar-nav {
+        text-align: center;
     }
 
-    .nav-link:hover::before, .nav-link.active::before {
-        width: 100%;
-        visibility: visible;
+    .nav-link {
+        display: block;
+        padding: 10px;
     }
 }
+

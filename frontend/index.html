@@ -23,7 +23,29 @@
           })
           .catch(error => console.error("Error loading navbar:", error));
   </script>
-  
+   
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get current page URL
+        let currentPage = window.location.pathname.split("/").pop();
+
+        // Select all nav links
+        let navLinks = document.querySelectorAll(".nav-link");
+
+        // Loop through each link
+        navLinks.forEach(link => {
+            let linkPage = link.getAttribute("href");
+
+            // Add 'active' class if link matches the current page
+            if (currentPage === linkPage) {
+                link.classList.add("active");
+            } else {
+                link.classList.remove("active");
+            }
+        });
+    });
+</script>
+
 
        <div class="hero-section">
             <video autoplay loop muted playsinline>
