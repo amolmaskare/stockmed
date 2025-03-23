@@ -3,26 +3,53 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Checkout - StockMed</title>
+ 
+  <!-- css of navbar -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="navbar.css">
   <link rel="stylesheet" href="./css/order.css" /> <!-- Reuse your existing CSS -->
   <style>
-    /* Additional styles for the checkout flow */
+    /* Enhanced Global Styles */
     body {
-      background-color: #f5f5f5;
-      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 600;
     }
 
     .checkout-container {
       max-width: 800px;
-      margin: 20px auto;
-      padding: 20px;
+      margin: 40px auto;
+      padding: 30px;
       background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .checkout-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
     }
 
     .checkout-step {
       display: none;
+      animation: fadeIn 0.5s ease;
     }
 
     .checkout-step.active {
@@ -30,68 +57,219 @@
     }
 
     h2 {
-      margin-bottom: 20px;
-      color: #333;
+      margin-bottom: 25px;
+      color: #4CAF50;
+      font-size: 1.8rem;
+      font-weight: 600;
     }
 
     label {
       display: block;
       margin-bottom: 10px;
-      font-weight: bold;
+      font-weight: 600;
       color: #555;
+      font-size: 1rem;
     }
 
     input, select, textarea {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       margin-bottom: 20px;
       border: 1px solid #ddd;
-      border-radius: 4px;
-      font-size: 16px;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #4CAF50;
+      box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
+      outline: none;
     }
 
     .button {
-      padding: 10px 20px;
+      padding: 12px 25px;
       background-color: #4CAF50;
       color: white;
       border: none;
-      border-radius: 4px;
+      border-radius: 8px;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: background-color 0.3s ease, transform 0.3s ease;
     }
 
     .button:hover {
       background-color: #45a049;
+      transform: translateY(-2px);
+    }
+
+    .button:active {
+      transform: translateY(0);
     }
 
     .order-summary {
       border-top: 1px solid #eee;
       padding-top: 20px;
+      margin-top: 20px;
     }
 
     .order-summary-item {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
+      padding: 10px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    .order-summary-item:hover {
+      background-color: #e9ecef;
     }
 
     .order-summary-item p {
       margin: 0;
       color: #555;
+      font-size: 1rem;
     }
 
     .order-summary-total {
       font-weight: bold;
       color: #333;
+      font-size: 1.2rem;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
     }
+
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 40px;
+      font-size: 0.9rem;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    /* Error Message Styling */
+    .error-message {
+      color: #ff4444;
+      font-size: 0.9rem;
+      margin-top: -10px;
+      margin-bottom: 10px;
+      display: none;
+    }
+
+    input:invalid, textarea:invalid {
+      border-color: #ff4444;
+    }
+
+    input:valid, textarea:valid {
+      border-color: #4CAF50;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .checkout-container {
+        margin: 20px;
+        padding: 20px;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      .button {
+        width: 100%;
+      }
+    }
+    /* Payment Method Styles */
+.payment-method-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.payment-method {
+  display: block;
+  cursor: pointer;
+}
+
+.payment-method input[type="radio"] {
+  display: none; /* Hide the default radio button */
+}
+
+.payment-method-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+.payment-method-card:hover {
+  border-color: #4CAF50;
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.payment-method input[type="radio"]:checked + .payment-method-card {
+  border-color: #4CAF50;
+  background-color: #f0fff4;
+}
+
+.payment-method-card img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+.payment-method-card span {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+}
+@keyframes glitter {
+  0% { background-position: 0 0; }
+  100% { background-position: 20px 20px; }
+}
+
+@keyframes confetti-fall {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(100vh) rotate(720deg); }
+}
   </style>
 </head>
 <body>
-  <header>
-    <h1>Checkout - StockMed</h1>
-  </header>
+  <div id="navbar-placeholder"></div>
 
   <main>
+    <header>
+      <h1>Checkout - StockMed</h1>
+    </header>
     <div class="checkout-container">
       <!-- Step 1: Add Address -->
       <div id="step-1" class="checkout-step active">
@@ -99,46 +277,78 @@
         <form id="address-form">
           <label for="full-name">Full Name</label>
           <input type="text" id="full-name" placeholder="Enter your full name" required />
+          <div class="error-message" id="full-name-error">Please enter your full name.</div>
 
           <label for="address">Address</label>
           <textarea id="address" rows="4" placeholder="Enter your delivery address" required></textarea>
+          <div class="error-message" id="address-error">Please enter your delivery address.</div>
 
           <label for="city">City</label>
           <input type="text" id="city" placeholder="Enter your city" required />
+          <div class="error-message" id="city-error">Please enter your city.</div>
 
           <label for="state">State</label>
           <input type="text" id="state" placeholder="Enter your state" required />
+          <div class="error-message" id="state-error">Please enter your state.</div>
 
           <label for="pincode">Pincode</label>
-          <input type="text" id="pincode" placeholder="Enter your pincode" required />
+          <input type="text" id="pincode" placeholder="Enter your pincode" pattern="\d{6}" required />
+          <div class="error-message" id="pincode-error">Please enter a valid 6-digit pincode.</div>
 
           <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" placeholder="Enter your phone number" required />
+          <input type="tel" id="phone" placeholder="Enter your phone number" pattern="\d{10}" required />
+          <div class="error-message" id="phone-error">Please enter a valid 10-digit phone number.</div>
 
-          <button type="button" class="button" onclick="nextStep(2)">Continue</button>
+          <button type="button" class="button" onclick="validateStep1()">Continue</button>
         </form>
       </div>
 
       <!-- Step 2: Select Payment Method -->
-      <div id="step-2" class="checkout-step">
-        <h2>Step 2: Select Payment Method</h2>
-        <form id="payment-form">
-          <label>
-            <input type="radio" name="payment-method" value="credit-card" required /> Credit/Debit Card
-          </label>
-          <label>
-            <input type="radio" name="payment-method" value="net-banking" required /> Net Banking
-          </label>
-          <label>
-            <input type="radio" name="payment-method" value="upi" required /> UPI
-          </label>
-          <label>
-            <input type="radio" name="payment-method" value="cod" required /> Cash on Delivery (COD)
-          </label>
+<div id="step-2" class="checkout-step">
+  <h2>Step 2: Select Payment Method</h2>
+  <form id="payment-form">
+    <!-- Payment Method Options -->
+    <div class="payment-method-options">
+      <label class="payment-method">
+        <input type="radio" name="payment-method" value="credit-card" required />
+        <div class="payment-method-card">
+          <img src="https://cdn-icons-png.flaticon.com/512/349/349221.png" alt="Credit/Debit Card" />
+          <span>Credit/Debit Card</span>
+        </div>
+      </label>
 
-          <button type="button" class="button" onclick="nextStep(3)">Continue</button>
-        </form>
-      </div>
+      <label class="payment-method">
+        <input type="radio" name="payment-method" value="net-banking" required />
+        <div class="payment-method-card">
+          <img src="https://cdn-icons-png.flaticon.com/512/869/869869.png" alt="Net Banking" />
+          <span>Net Banking</span>
+        </div>
+      </label>
+
+      <label class="payment-method">
+        <input type="radio" name="payment-method" value="upi" required />
+        <div class="payment-method-card">
+          <img src="https://cdn-icons-png.flaticon.com/512/3670/3670151.png" alt="UPI" />
+          <span>UPI</span>
+        </div>
+      </label>
+
+      <label class="payment-method">
+        <input type="radio" name="payment-method" value="cod" required />
+        <div class="payment-method-card">
+          <img src="https://cdn-icons-png.flaticon.com/512/2331/2331966.png" alt="Cash on Delivery" />
+          <span>Cash on Delivery (COD)</span>
+        </div>
+      </label>
+    </div>
+
+    <!-- Error Message -->
+    <div class="error-message" id="payment-error">Please select a payment method.</div>
+
+    <!-- Continue Button -->
+    <button type="button" class="button" onclick="validateStep2()">Continue</button>
+  </form>
+</div>
 
       <!-- Step 3: Order Summary -->
       <div id="step-3" class="checkout-step">
@@ -167,37 +377,115 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-  const checkoutItems = JSON.parse(localStorage.getItem('checkoutItems')) || [];
-  const orderSummary = document.querySelector('.order-summary');
-  let totalAmount = 0;
+      const checkoutItems = JSON.parse(localStorage.getItem('checkoutItems')) || [];
+      const orderSummary = document.querySelector('.order-summary');
+      let totalAmount = 0;
 
-  if (checkoutItems.length === 0) {
-    orderSummary.innerHTML = '<p>No items to display. Please go back and add items to your cart.</p>';
-  } else {
-    checkoutItems.forEach(item => {
-      const itemDiv = document.createElement('div');
-      itemDiv.className = 'order-summary-item';
-      itemDiv.innerHTML = `
-        <p>${item.name} (x${item.quantity})</p>
-        <p>₹${item['price(\u20b9)'] * item.quantity}</p>
-      `;
-      orderSummary.appendChild(itemDiv);
+      if (checkoutItems.length === 0) {
+        orderSummary.innerHTML = '<p>No items to display. Please go back and add items to your cart.</p>';
+      } else {
+        checkoutItems.forEach(item => {
+          const itemDiv = document.createElement('div');
+          itemDiv.className = 'order-summary-item';
+          itemDiv.innerHTML = `
+            <p>${item.name} (x${item.quantity})</p>
+            <p>₹${item['price(\u20b9)'] * item.quantity}</p>
+          `;
+          orderSummary.appendChild(itemDiv);
 
-      totalAmount += item['price(\u20b9)'] * item.quantity;
+          totalAmount += item['price(\u20b9)'] * item.quantity;
+        });
+
+        // Display the total amount
+        const totalDiv = document.createElement('div');
+        totalDiv.className = 'order-summary-total';
+        totalDiv.innerHTML = `
+          <p>Total:</p>
+          <p>₹${totalAmount.toFixed(2)}</p>
+        `;
+        orderSummary.appendChild(totalDiv);
+      }
     });
 
-    // Display the total amount
-    const totalDiv = document.createElement('div');
-    totalDiv.className = 'order-summary-total';
-    totalDiv.innerHTML = `
-      <p>Total:</p>
-      <p>₹${totalAmount.toFixed(2)}</p>
-    `;
-    orderSummary.appendChild(totalDiv);
-  }
-});
-
     let currentStep = 1;
+
+    // Function to validate Step 1
+    // Function to validate Step 1
+function validateStep1() {
+  const fullName = document.getElementById('full-name').value;
+  const address = document.getElementById('address').value;
+  const city = document.getElementById('city').value;
+  const state = document.getElementById('state').value;
+  const pincode = document.getElementById('pincode').value;
+  const phone = document.getElementById('phone').value;
+
+  let isValid = true;
+
+  // Validate Full Name
+  if (!fullName) {
+    document.getElementById('full-name-error').style.display = 'block';
+    isValid = false;
+  } else {
+    document.getElementById('full-name-error').style.display = 'none';
+  }
+
+  // Validate Address
+  if (!address) {
+    document.getElementById('address-error').style.display = 'block';
+    isValid = false;
+  } else {
+    document.getElementById('address-error').style.display = 'none';
+  }
+
+  // Validate City
+  if (!city) {
+    document.getElementById('city-error').style.display = 'block';
+    isValid = false;
+  } else {
+    document.getElementById('city-error').style.display = 'none';
+  }
+
+  // Validate State
+  if (!state) {
+    document.getElementById('state-error').style.display = 'block';
+    isValid = false;
+  } else {
+    document.getElementById('state-error').style.display = 'none';
+  }
+
+  // Validate Pincode (must be 6 digits)
+  if (!pincode || !/^\d{6}$/.test(pincode)) {
+    document.getElementById('pincode-error').style.display = 'block';
+    isValid = false;
+  } else {
+    document.getElementById('pincode-error').style.display = 'none';
+  }
+
+  // Validate Phone Number (must be 10 digits)
+  if (!phone || !/^\d{10}$/.test(phone)) {
+    document.getElementById('phone-error').style.display = 'block';
+    isValid = false;
+  } else {
+    document.getElementById('phone-error').style.display = 'none';
+  }
+
+  // Proceed to Step 2 only if all fields are valid
+  if (isValid) {
+    nextStep(2);
+  }
+}
+
+    // Function to validate Step 2
+    function validateStep2() {
+      const paymentMethod = document.querySelector('input[name="payment-method"]:checked');
+
+      if (!paymentMethod) {
+        document.getElementById('payment-error').style.display = 'block';
+      } else {
+        document.getElementById('payment-error').style.display = 'none';
+        nextStep(3);
+      }
+    }
 
     // Function to navigate between steps
     function nextStep(step) {
@@ -236,7 +524,9 @@
     }
 
     // Function to place the order
-    function placeOrder() {
+    // Function to place the order
+function placeOrder() {
+  // Gather all the data from the form
   const fullName = document.getElementById('full-name').value;
   const address = document.getElementById('address').value;
   const city = document.getElementById('city').value;
@@ -245,13 +535,9 @@
   const phone = document.getElementById('phone').value;
   const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
   const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+  const totalAmount = document.getElementById('order-total').textContent;
 
-  if (!fullName || !address || !city || !state || !pincode || !phone || !paymentMethod) {
-    alert("Please fill in all required fields.");
-    return;
-  }
-
-  // Prepare the data for submission
+  // Prepare the data to send to the backend
   const orderData = {
     fullName,
     address,
@@ -261,11 +547,11 @@
     phone,
     paymentMethod,
     cartItems,
-    totalAmount: document.getElementById('order-total').textContent
+    totalAmount
   };
 
-  // Send the data to the backend
-  fetch('http://localhost/StockMed/frontend/submit_order.php', {  // Change this URL to your actual API endpoint
+  // Send the data to the backend using fetch
+  fetch('submit_order.php', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -275,11 +561,174 @@
   .then(response => response.json())
   .then(data => {
     if (data.success) {
-      alert('Your order has been placed successfully!');
-      localStorage.removeItem('cartItems'); // Clear cart after successful order
-      window.location.href = 'order.php'; // Redirect to order confirmation page
+      const overlay = document.createElement('div');
+      overlay.style.position = 'fixed';
+      overlay.style.top = '0';
+      overlay.style.left = '0';
+      overlay.style.width = '100%';
+      overlay.style.height = '100%';
+      overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+      overlay.style.backdropFilter = 'blur(5px)';
+      overlay.style.display = 'flex';
+      overlay.style.justifyContent = 'center';
+      overlay.style.alignItems = 'center';
+      overlay.style.zIndex = '1000';
+
+      // Create modal
+      const modal = document.createElement('div');
+      modal.style.background = 'linear-gradient(135deg, #4caf50, #81c784)';
+      modal.style.padding = '40px'; // Increased padding
+      modal.style.borderRadius = '20px'; // Rounded corners
+      modal.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.2)';
+      modal.style.textAlign = 'center';
+      modal.style.width = '500px'; // Increased width
+      modal.style.maxWidth = '90%'; // Responsive max-width
+      modal.style.transform = 'scale(0.9)';
+      modal.style.opacity = '0';
+      modal.style.transition = 'all 0.3s ease';
+      modal.style.position = 'relative';
+
+      // Add glitter effect
+      const glitter = document.createElement('div');
+      glitter.style.position = 'absolute';
+      glitter.style.top = '0';
+      glitter.style.left = '0';
+      glitter.style.width = '100%';
+      glitter.style.height = '100%';
+      glitter.style.background = 'radial-gradient(circle, rgba(255, 255, 255, 0.8) 10%, transparent 10.01%)';
+      glitter.style.backgroundSize = '20px 20px';
+      glitter.style.animation = 'glitter 1.5s infinite';
+      modal.appendChild(glitter);
+
+      // Add custom message
+      const message = document.createElement('p');
+      message.textContent = '🎉 Order Successful! 🎉';
+      message.style.fontSize = '32px'; // Larger font size
+      message.style.color = 'white';
+      message.style.marginBottom = '30px'; // Increased margin
+      message.style.fontWeight = 'bold';
+      message.style.lineHeight = '1.5'; // Better readability
+      modal.appendChild(message);
+
+      // Add confetti effect
+      const confetti = document.createElement('div');
+      confetti.style.position = 'absolute';
+      confetti.style.top = '0';
+      confetti.style.left = '0';
+      confetti.style.width = '100%';
+      confetti.style.height = '100%';
+      confetti.style.overflow = 'hidden';
+      confetti.style.pointerEvents = 'none';
+
+      for (let i = 0; i < 50; i++) {
+        const dot = document.createElement('div');
+        dot.style.position = 'absolute';
+        dot.style.width = '10px';
+        dot.style.height = '10px';
+        dot.style.backgroundColor = ['#ffeb3b', '#f44336', '#2196f3', '#4caf50'][Math.floor(Math.random() * 4)];
+        dot.style.top = '-10px';
+        dot.style.left = `${Math.random() * 100}%`;
+        dot.style.animation = `confetti-fall ${Math.random() * 3 + 2}s linear ${Math.random() * 2}s infinite`;
+        confetti.appendChild(dot);
+      }
+
+      modal.appendChild(confetti);
+
+      // Append modal to overlay
+      overlay.appendChild(modal);
+
+      // Append overlay to the body
+      document.body.appendChild(overlay);
+
+      // Trigger modal animation
+      setTimeout(() => {
+        modal.style.transform = 'scale(1)';
+        modal.style.opacity = '1';
+      }, 10);
+
+      // Redirect after 3 seconds
+      setTimeout(() => {
+        localStorage.removeItem('cartItems'); // Clear the cart
+        window.location.href = 'order.php'; // Redirect to confirmation page
+      }, 5000);
     } else {
-      alert('Error placing order. Please try again.');
+      const overlay = document.createElement('div');
+      overlay.style.position = 'fixed';
+      overlay.style.top = '0';
+      overlay.style.left = '0';
+      overlay.style.width = '100%';
+      overlay.style.height = '100%';
+      overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+      overlay.style.backdropFilter = 'blur(5px)';
+      overlay.style.display = 'flex';
+      overlay.style.justifyContent = 'center';
+      overlay.style.alignItems = 'center';
+      overlay.style.zIndex = '1000';
+
+      // Create modal
+      const modal = document.createElement('div');
+      modal.style.background = 'linear-gradient(135deg, #ffffff, #f9f9f9)';
+      modal.style.padding = '30px';
+      modal.style.borderRadius = '15px';
+      modal.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.2)';
+      modal.style.textAlign = 'center';
+      modal.style.maxWidth = '400px';
+      modal.style.width = '90%';
+      modal.style.transform = 'scale(0.9)';
+      modal.style.opacity = '0';
+      modal.style.transition = 'all 0.3s ease';
+
+      // Add message
+      const message = document.createElement('p');
+      message.textContent = 'User is not logged in. Please first login.';
+      message.style.fontSize = '18px';
+      message.style.color = '#333';
+      message.style.marginBottom = '20px';
+      modal.appendChild(message);
+
+      // Add login button
+      const loginButton = document.createElement('button');
+      loginButton.textContent = 'Login';
+      loginButton.style.background = 'linear-gradient(135deg, #007bff, #0056b3)';
+      loginButton.style.color = 'white';
+      loginButton.style.border = 'none';
+      loginButton.style.padding = '12px 24px';
+      loginButton.style.borderRadius = '25px';
+      loginButton.style.fontSize = '16px';
+      loginButton.style.cursor = 'pointer';
+      loginButton.style.transition = 'background 0.3s ease, transform 0.2s ease';
+      loginButton.onclick = () => {
+        window.location.href = '../backend/login.php';
+      };
+
+      // Hover effect for button
+      loginButton.onmouseenter = () => {
+        loginButton.style.background = 'linear-gradient(135deg, #0056b3, #003d80)';
+        loginButton.style.transform = 'scale(1.05)';
+      };
+      loginButton.onmouseleave = () => {
+        loginButton.style.background = 'linear-gradient(135deg, #007bff, #0056b3)';
+        loginButton.style.transform = 'scale(1)';
+      };
+
+      modal.appendChild(loginButton);
+      overlay.appendChild(modal);
+
+      // Append overlay to the body
+      document.body.appendChild(overlay);
+
+      // Trigger modal animation
+      setTimeout(() => {
+        modal.style.transform = 'scale(1)';
+        modal.style.opacity = '1';
+      }, 10);
+
+      // Close modal on clicking outside
+      overlay.onclick = (e) => {
+        if (e.target === overlay) {
+          overlay.style.display = 'none';
+        }
+      }
     }
   })
   .catch(error => {
@@ -288,10 +737,19 @@
   });
 }
   </script>
-  <div class="order-summary">
-    <h2>Order Summary</h2>
-    <!-- Order items will be dynamically inserted here -->
-  </div>
-  
+   <script>
+    // Fetch and Insert Navbar
+    fetch("navbar.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("navbar-placeholder").innerHTML = data;
+
+            // Load cart.js AFTER the navbar is loaded
+            const script = document.createElement('script');
+            script.src = './js/cart.js';
+            document.body.appendChild(script);
+        })
+        .catch(error => console.error("Error loading navbar:", error));
+</script>
 </body>
 </html>

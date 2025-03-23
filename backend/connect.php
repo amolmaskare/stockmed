@@ -59,7 +59,27 @@ if (isset($_POST['submit'])) {
         }
     }
 }
+if (isset($_POST['admin'])) {
+    // Hardcoded admin credentials
+    $adminEmail = 'admin@test.com';
+    $adminPassword = 'admin@1234';
 
+    // Collect form input
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
+
+    // Check if credentials match admin
+    if ($email === $adminEmail && $password === $adminPassword) {
+        // Admin login successful
+        $_SESSION['isAdmin'] = true;
+        $_SESSION['email'] = $email;
+        header("Location: ../frontend/change.html");
+        exit();
+    } else {
+        // Invalid credentials
+        echo "Invalid email or password.";
+    }
+}
 // Close connection
 mysqli_close($conn);
 ?>

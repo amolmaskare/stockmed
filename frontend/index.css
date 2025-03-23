@@ -47,3 +47,75 @@
         font-size: 2.5rem;
     }
 }
+/* Hero Section with Fixed Background */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.hero-section video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1; /* Keeps it in the background */
+}
+
+/* Scrolling Text Container */
+.scrolling-text-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%; /* Covers more area */
+    max-width: 1000px;
+    height: 300px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background: rgba(0, 0, 0, 0.2); Transparent look */
+    /* border-radius: 15px; */
+    padding: 15px;
+    /* box-shadow: 0px 0px 20px rgba(255, 0, 0, 0.5); Red outer glow */
+}
+
+/* Scrolling Text Effect */
+.scrolling-text {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 1.7rem;
+    color: white;
+    font-weight: bold;
+    line-height: 2.5rem;
+    animation: scrollUp 10s linear infinite;
+}
+
+/* Adding Red Glow to Text */
+.scrolling-text p {
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 
+                 0 0 20px rgba(255, 0, 0, 0.6), 
+                 0 0 30px rgba(255, 0, 0, 0.4); /* Stronger red glow */
+}
+
+/* Smooth Scroll Animation */
+@keyframes scrollUp {
+    0% { transform: translateY(100%); }
+    100% { transform: translateY(-100%); }
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+    .scrolling-text-container {
+        width: 95%;
+        height: 120px;
+    }
+
+    .scrolling-text {
+        font-size: 1.3rem;
+        line-height: 2rem;
+    }
+}

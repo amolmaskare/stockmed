@@ -1,118 +1,109 @@
-/* Prevents input and button from expanding in the contact page */
-.search-form input {
-  width: auto !important;  /* Restricts automatic expansion */
-  flex-grow: 0 !important; /* Prevents flex from expanding */
-}
-
-.search-form button {
-  flex-grow: 0 !important; /* Ensures button stays its normal size */
-  white-space: nowrap; /* Prevents button text from wrapping */
-}
-
+/* General Styles */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
-  /* margin: 0; */
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #f9f9f9, #e0f7fa);
+  margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; /* Changed height to min-height to prevent cutting */
+  min-height: 100vh;
   flex-direction: column;
-  padding-top: 90px; /* Add padding to prevent overlap with navbar */
+  padding-top: 90px; /* Adjusted to account for navbar height */
   position: relative;
-  background-image: url('/frontend/contact2.jpg'); /* Replace with your image URL */
-  background-size: cover;
+  overflow: auto; /* Allow scrolling if content overflows */
 }
 
-body::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: inherit;
-  filter: blur(1px); /* Adjust the blur intensity */
-  z-index: -1; /* Sends it behind all content */
-}
-
-.container {
-  text-align: left; /* Or center, as needed */
-  justify-content: center; /* Keeps button centered */
-}
-
+/* Contact Container */
 .contact-container {
   width: 40%;
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  margin-top: 20px; /* Ensure it stays below navbar */
-}
-
-h2 {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
   text-align: center;
-  padding-top: 5px;
+  animation: fadeIn 1s ease-in-out;
+  margin-top: 20px; /* Added margin to ensure it's below the navbar */
+  margin-bottom: 40px; /* Added margin at the bottom for spacing */
+}
+
+.contact-header h2 {
+  font-size: 2.5rem;
   color: #333;
+  margin-bottom: 10px;
+  animation: slideIn 1s ease-in-out;
 }
 
-form {
-  /* display: flex; */
-  flex-direction: column;
-  padding-bottom: 0; /* Added padding at the bottom */
-  margin-bottom: 0;
+.contact-header p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 30px;
+  animation: slideIn 1.2s ease-in-out;
 }
 
-label {
-  margin-top: 10px;
-  font-weight: bold;
+/* Form Styles */
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+  animation: fadeIn 1.5s ease-in-out;
 }
 
-input {
+.form-group label {
+  font-weight: 600;
+  color: #333;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group textarea {
   width: 100%;
-  padding: 5px;
-  margin-top: 5px;
+  padding: 12px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.8);
 }
 
-textarea {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #4CAF50;
+  box-shadow: 0 0 12px rgba(76, 175, 80, 0.3);
+  outline: none;
+  background: rgba(255, 255, 255, 1);
 }
 
+/* Button Styles */
 .popup-button {
-  background-color: green;
+  background: linear-gradient(135deg, #4CAF50, #45a049);
   color: white;
   border: none;
-  padding: 5px 6px; /* Reduced padding for smaller width */
-  font-size: 15px;
+  padding: 12px 24px;
+  font-size: 1rem;
   cursor: pointer;
-  border-radius: 5px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  margin-top: 10px;
-  margin-bottom: 0;
-  min-width: 50px; /* Adjusted minimum width */
-  text-align: center;
-  display: block;
-  margin: 10px auto; /* Centers horizontally */
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
 }
-
 
 .popup-button:hover {
-  transform: scale(1.1); /* Slight pop-up effect */
-  box-shadow: 0px 3px 8px rgba(0, 128, 0, 0.4); /* Soft shadow */
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(76, 175, 80, 0.4);
 }
 
+.popup-button:active {
+  transform: translateY(0);
+}
 
-/* Floating icon animation */
-/* .medicine-icons {
+/* Floating Icons */
+.floating-icons {
   position: fixed;
   top: 0;
   left: 0;
@@ -122,27 +113,60 @@ textarea {
   z-index: -1;
 }
 
-.medicine-icons img {
+.floating-icons .icon {
   position: absolute;
-  width: 50px;
-  opacity: 0.2;
+  font-size: 2rem;
+  color: rgba(76, 175, 80, 0.3);
   animation: float 6s infinite ease-in-out;
-} */
+}
 
+.floating-icons .icon:nth-child(1) {
+  top: 10%;
+  left: 5%;
+  animation-delay: 0s;
+}
+
+.floating-icons .icon:nth-child(2) {
+  top: 30%;
+  right: 10%;
+  animation-delay: 2s;
+}
+
+.floating-icons .icon:nth-child(3) {
+  bottom: 20%;
+  left: 15%;
+  animation-delay: 4s;
+}
+
+/* Animations */
 @keyframes float {
   0% { transform: translateY(0); }
   50% { transform: translateY(-20px); }
   100% { transform: translateY(0); }
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .contact-container {
-      width: 90%; /* Make it fit smaller screens */
-      padding: 15px;
+    width: 90%;
+    padding: 20px;
   }
 
   body {
-      padding-top: 100px; /* Increase padding to avoid navbar overlap */
+    padding-top: 100px;
+  }
+
+  .popup-button {
+    width: 100%; /* Make button full width on smaller screens */
   }
 }

@@ -44,7 +44,30 @@ cartCount.textContent = cartItems.reduce((total, item) => total + item.quantity,
       window.location.href = 'signup.html';
     });
   }
-
+  function initializeCart() {
+    const cartContainer = document.getElementById('cart-container');
+    const cartCount = document.getElementById('cart-count');
+  
+    if (!cartContainer || !cartCount) {
+      console.error('Cart container or count not found. Retrying in 500ms...');
+      setTimeout(initializeCart, 500); // Retry after 500ms
+      return;
+    }
+  
+    // Initialize cart logic
+    console.log('Cart initialized successfully!');
+  
+    // Example: Update cart count
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    cartCount.textContent = cartItems.reduce((total, item) => total + item.quantity, 0);
+  
+    // Example: Add click event to cart container
+    cartContainer.addEventListener('click', () => {
+      window.location.href = 'cart.html';
+    });
+  }
+  
+  document.addEventListener('DOMContentLoaded', initializeCart);
   function checkUrlAvailability(productId) {
     return fetch('checkurl.php', {
         method: 'POST',
@@ -183,32 +206,43 @@ cartCount.textContent = cartItems.reduce((total, item) => total + item.quantity,
         productCard.appendChild(detailsDiv);
 
         const addButton = document.createElement('button');
-        addButton.textContent = 'Add to Cart';
-        addButton.className = 'add-button';
-        addButton.addEventListener('click',async () => {
-          if (!isUserLoggedIn()) {
-              showLoginModal();
-              return;
-          }
-          let url = await processProduct(product.id, product.url);
-          const existingItem = cartItems.find((item) => item.id === product.id);
-          if (existingItem) {
-              existingItem.quantity += 1;
-          } else {
-              cartItems.push({ ...product, quantity: 1, url: url });
-          }
-      
-          // Update localStorage and cart count
-          localStorage.setItem('cartItems', JSON.stringify(cartItems));
-          cartCount.textContent = cartItems.reduce((total, item) => total + item.quantity, 0);
-      });
+    addButton.textContent = 'Add to Cart';
+    addButton.className = 'add-button';
+    addButton.addEventListener('click', async () => {
+        if (!isUserLoggedIn()) {
+            showLoginModal();
+            return;
+        }
+
+        let url = await processProduct(product.id, product.url);
+        const existingItem = cartItems.find((item) => item.id === product.id);
+
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cartItems.push({ ...product, quantity: 1, url: url });
+        }
+
+        // Update localStorage with the new cart data
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+        // Update the cart count
+        updateCartCount();
+
+        // Trigger a custom event to notify other pages of the cart update
+        window.dispatchEvent(new Event('cartUpdated'));
+    });
       
         productCard.appendChild(addButton);
 
         productsSection.appendChild(productCard);
     });
 }
-
+function updateCartCount() {
+  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+  const cartCount = document.getElementById('cart-count');
+  cartCount.textContent = cartItems.reduce((total, item) => total + item.quantity, 0);
+}
   function updatePagination() {
     paginationDiv.innerHTML = '';
 

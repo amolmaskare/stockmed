@@ -10,6 +10,8 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
   <!-- Firebase Firestore SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
   <!-- Modal Styles -->
 <style>
   .modal {
@@ -84,55 +86,38 @@
 </style>
 </head>
 <body>
-<header>
-  <h1>StockMed Products</h1>
-  <div id="user-cart-container">
-    <!-- User Initials -->
-    <div id="user-initial"></div>
-    <div id="user-dropdown" class="dropdown">
-    <button id="logout-button">Logout</button>
-  </div>
-<!-- </div> -->
-    <!-- Cart Icon Container -->
-    <div id="cart-container">
+
+<div id="navbar-placeholder"></div>
+
     <span id="cart-count">0</span>
 
-      <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" id="cart-icon" alt="Cart Icon">
-    </div>
-  </div>
-</header>
   
 <!-- Navbar linking -->
 <script>
-      fetch("navbar.html")
-          .then(response => response.text())
-          .then(data => {
-              document.getElementById("navbar-placeholder").innerHTML = data;
-          })
-          .catch(error => console.error("Error loading navbar:", error));
-  </script>
-   
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Get current page URL
-        let currentPage = window.location.pathname.split("/").pop();
+        // Fetch and Insert Navbar
+        fetch("navbar.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("navbar-placeholder").innerHTML = data;
+                // Call function to set active navbar link
+                setActiveNavLink();
+            })
+            .catch(error => console.error("Error loading navbar:", error));
 
-        // Select all nav links
-        let navLinks = document.querySelectorAll(".nav-link");
+        // Function to Highlight Active Link
+        function setActiveNavLink() {
+            const currentPage = window.location.pathname.split("/").pop();
+            const navLinks = document.querySelectorAll(".nav-link");
 
-        // Loop through each link
-        navLinks.forEach(link => {
-            let linkPage = link.getAttribute("href");
-
-            // Add 'active' class if link matches the current page
-            if (currentPage === linkPage) {
-                link.classList.add("active");
-            } else {
-                link.classList.remove("active");
-            }
-        });
-    });
-</script>
+            navLinks.forEach(link => {
+                if (link.getAttribute("href") === currentPage) {
+                    link.classList.add("active");
+                } else {
+                    link.classList.remove("active");
+                }
+            });
+        }
+    </script>
   <main>
     <section id="search-section">
       <input type="text" id="search-input" placeholder="Search for medicines..." />

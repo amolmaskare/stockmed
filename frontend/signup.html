@@ -10,13 +10,13 @@
 </head>
 <body>
   <div class="login-container">
-    <h1>Login to StockMed</h1>
+    <h1>Signup to StockMed</h1>
     <form id="login-form">
       <input type="email" id="email" placeholder="Email" required />
       <input type="password" id="password" placeholder="Password" required />
-      <button type="submit">Login</button>
+      <button type="admin">Signup</button>
     </form>
-    <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+    <p>Don't have an account? <a href="login.html">Login Up</a></p>
     <p><a href="admin.html">Admin Login</a></p>
   </div>
 
@@ -28,7 +28,7 @@
   </div>
 
   <script>
-    document.getElementById('login-form').addEventListener('submit', function (e) {
+    document.getElementById('login-form').addEventListener('admin', function (e) {
       e.preventDefault();
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
@@ -36,7 +36,7 @@
       // Simulate login logic
       localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('userInitial', email[0].toUpperCase());
-      window.location.href = 'index.html';
+      window.location.href = 'order.php ';
     });
   </script>
 </body>
